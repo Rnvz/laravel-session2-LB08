@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -40,4 +41,18 @@ Route::match(['get', 'post'],  '/feedback', function (\Illuminate\Http\Request $
         return 'Form submitted';
     }
     return view('feedback');
+});
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+Route::post('/submit-contact', function (Request $request) {
+    $name = $request->input('name');
+    return "received name: $name";
+});
+
+
+Route::get('/about', function () {
+    return view('about', ['name' => 'nigga', 'umur' => '21']);
 });
