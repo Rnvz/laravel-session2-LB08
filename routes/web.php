@@ -36,6 +36,7 @@ Route::get('/admin/karyawan', function (){
     return view('admin.karyawan');
 });
 
+// 2.3 Route Match
 Route::match(['get', 'post'],  '/feedback', function (\Illuminate\Http\Request $request) {
     if($request->isMethod('post')){
         return 'Form submitted';
@@ -43,6 +44,7 @@ Route::match(['get', 'post'],  '/feedback', function (\Illuminate\Http\Request $
     return view('feedback');
 });
 
+// 2.4 Passing data from View to routes
 Route::get('/contact', function () {
     return view('contact');
 });
@@ -52,7 +54,17 @@ Route::post('/submit-contact', function (Request $request) {
     return "received name: $name";
 });
 
-
+// 2.5 Passing data from Routes to the view
 Route::get('/about', function () {
     return view('about', ['name' => 'nigga', 'umur' => '21']);
+});
+
+// 2.6 Route Parameters
+Route::get('/profile/{username}', function ($username) {
+    return view('profile', ['username' => $username]);
+});
+
+// 2.7 Route Fallback
+Route::fallback(function () {
+    return response()->view('fallback', [], 404);
 });
